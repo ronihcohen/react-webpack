@@ -9,6 +9,11 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "jsx-loader": "^0.13.2"
+    "css-loader": "^0.15.5",
+    "jsx-loader": "^0.13.2",
+    "style-loader": "^0.12.3"
+  },
+  "dependencies": {
+    "react": "^0.13.3"
   }
 }
