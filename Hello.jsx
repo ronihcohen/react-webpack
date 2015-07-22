@@ -1,5 +1,5 @@
 /** @jsx React.DOM */
-'use strict'
+'use strict';
 
 function getCORS(url, success) {
     var xhr = new XMLHttpRequest();
@@ -9,34 +9,30 @@ function getCORS(url, success) {
     return xhr;
 }
 
-var React = require('react')
+var React = require('react');
 module.exports = React.createClass({
   getInitialState: function() {
     return {
-      username: 'ronihcohen',
-      lastGistUrl: ''
+      result: []
     };
   },
 
   componentDidMount: function() {
     getCORS(this.props.source, function(request){
-      var result = JSON.parse(request.currentTarget.response || request.target.responseText);
-      var lastGist = result[0];
-      if (this.isMounted()) {
-        this.setState({
-          username: lastGist.owner.login,
-          lastGistUrl: lastGist.html_url
-        });
-      }
+        if (this.isMounted()) {
+            this.setState({
+                result : JSON.parse(request.currentTarget.response || request.target.responseText)
+            });
+        }
     }.bind(this));
   },
 
   render: function() {
-    return (
-      <div>
-        {this.state.username}'s last gist is
-        <a href={this.state.lastGistUrl}>here</a>.
-      </div>
-    );
+    return (<div>
+      { this.state.result.map(function(item) {
+        return <div key={item.id}>{item.created_at}</div>
+      })
+      }
+    </div>);
   }
 });
